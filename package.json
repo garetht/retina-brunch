@@ -1,0 +1,25 @@
+{
+  "name": "retina-brunch",
+  "version": "1.7.0",
+  "description": "Automatically resizes images labeled at retina sizes to lower resolutions.",
+  "main": "lib/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/garetht/retina-brunch.git"
+  },
+  "keywords": [
+    "retina"
+  ],
+  "author": "Gareth Tan (http://garethtan.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garetht/retina-brunch/issues"
+  },
+  "homepage": "https://github.com/garetht/retina-brunch",
+  "dependencies": {
+    "netpbm": "~0.1.1"
+  }
+}
