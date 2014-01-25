@@ -9,7 +9,7 @@ module.exports = class Retina
   formats: ['gif', 'jpeg', 'jpg', 'png']
   _resize_binary: 'pnmscale'
   imagePath: 'images'
-  retinaRe: /(@2x)\.(?:gif|jpeg|jpg|png)$/
+  retinaRe: /(@2[xX])\.(?:gif|jpeg|jpg|png)$/
   minWidth: 0
   minHeight: 0
 
