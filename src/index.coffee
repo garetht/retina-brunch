@@ -10,8 +10,12 @@ module.exports = class Retina
   _resize_binary: 'pnmscale'
   imagePath: 'images'
   retinaRe: /(@2x)\.(?:gif|jpeg|jpg|png)$/
+  minWidth: 0
+  minHeight: 0
 
   constructor: (@config) ->
+    @minWidth = @config.plugins.retina.minWidth if @config.plugins?.retina?.minWidth
+    @minHeight = @config.plugins.retina.minHeight if @config.plugins?.retina?.minHeight
     @retinaRe = @config.plugins.retina.regexp if @config.plugins?.retina?.regexp
     @imagePath = @config.plugins.retina.path if @config.plugins?.retina?.path
 
@@ -25,9 +29,11 @@ module.exports = class Retina
   onCompile: (generatedFiles) ->
     baseDirectory = @imagePath.replace(/\/$/, '')
     imageFiles = @fetchFiles baseDirectory
-    retinaFiles = (f for f in imageFiles when @retinaRe.test f)
+    retinaFilepaths = (f for f in imageFiles when @retinaRe.test f)
 
-    @processRetina r for r in retinaFiles when @noNormal r
+    for retinaPath in retinaFilepaths
+      normalPath = @getNormalFilepath retinaPath
+      @createNormal(normalPath, retinaPath) unless @normalExists normalPath
 
   # Borrowed and modified from imageoptimizer
   fetchFiles: (directory) ->
@@ -47,12 +53,36 @@ module.exports = class Retina
 
       for d in nextDirectories
         files = files.concat(recursiveFetch (prependBase d))
-
       files
 
     recursiveFetch directory
 
-  processRetinas: (retinas) ->
+  createNormal: (normalPath, retinaPath) ->
+    info retinaPath, (error, result) =>
+      if not error
+        {width, height} = result
+        width = Math.round(width / 2)
+        height = Math.round(height / 2)
+
+        opts =
+          width: width
+          height: height
+          alpha: true
+
+        if width > @minWidth and height > @minHeight
+          convert retinaPath, normalPath, opts, (error) ->
+            console.error error if error
+
+  normalExists: (normalPath) ->
+    fs.existsSync(normalPath);
+
+  getNormalFilepath: (filepath) ->
+    result = @retinaRe.exec filepath
+    [original, match] = result
+    {index} = result
+    "#{filepath[0...index]}#{filepath[index + match.length..]}"
+
+
 
 
 
