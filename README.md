@@ -1,7 +1,7 @@
 retina-brunch
 =============
 
-Automatically resizes images labeled at Retina sizes to lower resolutions. This must be used with the [Brunch](http://brunch.io) build tool.
+Automatically resizes images labeled at Retina sizes to lower resolutions. Plop an `@2x` image into an `images` folder, and get the normal version too. This must be used with the [Brunch](http://brunch.io) build tool.
 
 Installing
 ===
@@ -23,6 +23,10 @@ exports.config =
       minHeight: 0
 ```
 
-* `RegExp` **regexp** takes a Coffeescript/Javascript regular expression with **exactly one group** (if you specify more, they will be ignored; if you specify fewer, it will break) specifying the string that distinguishes a Retina file from a normal file. By convention, this is normally `@2x`. The name of the normal file will be determined by removing this group. The image resizing tool does not support image formats other than those already specified.
+* `RegExp` **regexp** takes a Coffeescript/Javascript regular expression with **exactly one group** (if you specify more, they will be ignored; if you specify fewer, it will break) specifying the string that distinguishes a Retina file from a normal file. By convention, this is normally `@2x` or `@2X`. The name of the normal file will be determined by removing this group. The image resizing tool does not support image formats other than those already specified.
 * `String` **path** is the path to your images folder within the `public` folder specified in `config.coffee`, or any directory you want to monitor for files matching the Retina regular expresssion.
 * `Integer` **minHeight** and **minWidth** filter the files which are processed. In particular, a file's dimensions needs to be above **both** the minimum height and width for it to be processed.
+
+Todo
+===
+It would be interesting to add support for sizes greater than `@2x`. If one specified `@3x` for example, this would generate both a `@2x` and normal version.
