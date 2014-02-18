@@ -27,6 +27,12 @@ exports.config =
 * `String` **path** is the path to your images folder within the `public` folder specified in `config.coffee`, or any directory you want to monitor for files matching the Retina regular expresssion.
 * `Integer` **minHeight** and **minWidth** filter the files which are processed. In particular, a file's dimensions needs to be above **both** the minimum height and width for it to be processed.
 
+Contributing
+===
+
+Watch & compile changes: `coffee --watch --output lib/ src/`
+
+
 Todo
 ===
 It would be interesting to add support for sizes greater than `@2x`. If one specified `@3x` for example, this would generate both a `@2x` and normal version.

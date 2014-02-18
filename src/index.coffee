@@ -18,8 +18,10 @@ module.exports = class Retina
     @minHeight = @config.plugins.retina.minHeight if @config.plugins?.retina?.minHeight
     @retinaRe = @config.plugins.retina.regexp if @config.plugins?.retina?.regexp
     @imagePath = @config.plugins.retina.path if @config.plugins?.retina?.path
+    @assetsPath = @config.paths.public
+    @assetsPath = @config.plugins.retina.assetsPath if @config.plugins?.retina?.assetsPath
 
-    @imagePath = path.join @config.paths.public, @imagePath
+    @imagePath = path.join @assetsPath, @imagePath
 
     exec "#{@_resize_binary} --version", (error, stdout, stderr) =>
       if error
