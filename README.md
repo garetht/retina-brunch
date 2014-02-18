@@ -21,6 +21,7 @@ exports.config =
       path: 'images'
       minWidth: 0
       minHeight: 0
+      assetsPath: 'public' # could be set to i.e. './app/assets'
 ```
 
 * `RegExp` **regexp** takes a Coffeescript/Javascript regular expression with **exactly one group** (if you specify more, they will be ignored; if you specify fewer, it will break) specifying the string that distinguishes a Retina file from a normal file. By convention, this is normally `@2x` or `@2X`. The name of the normal file will be determined by removing this group. The image resizing tool does not support image formats other than those already specified.
