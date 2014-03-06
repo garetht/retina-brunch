@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/garetht/retina-brunch",
   "dependencies": {
-    "netpbm": "git://github.com/punkave/node-netpbm.git#073de089",
+    "netpbm": "~1.0.0",
     "path": "~0.4.9"
   }
 }
