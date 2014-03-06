@@ -61,19 +61,23 @@ module.exports = class Retina
 
   createNormal: (normalPath, retinaPath) ->
     info retinaPath, (error, result) =>
-      if not error
-        {width, height} = result
-        width = Math.round(width / 2)
-        height = Math.round(height / 2)
+      if error
+        console.error "retina-brunch couldn't get file info of `#{retinaPath}`. Error: `#{error}`"
+        return
 
-        opts =
-          width: width
-          height: height
-          alpha: true
+      {width, height} = result
+      width = Math.round(width / 2)
+      height = Math.round(height / 2)
 
-        if width > @minWidth and height > @minHeight
-          convert retinaPath, normalPath, opts, (error) ->
-            console.error error if error
+      opts =
+        width: width
+        height: height
+        alpha: true
+
+      if width > @minWidth and height > @minHeight
+        convert retinaPath, normalPath, opts, (error) ->
+          if error
+            console.error "retina-brunch couldn't convert `#{retinaPath}`. Error: `#{error}`"
 
   normalExists: (normalPath) ->
     fs.existsSync(normalPath);
